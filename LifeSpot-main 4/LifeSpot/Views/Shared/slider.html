@@ -1,0 +1,178 @@
+﻿<style>
+    
+    /* Контейнер со слайдами*/
+    .slideshow-container {
+        max-width: 1100px;
+        position: relative;
+    }
+
+   /*  Кнопки переключения слайдов */
+    .prev, .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        padding: 16px;
+        margin-top: -22px;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+    }
+
+    /* Расположим кнопку переключения на следующий слайд справа*/
+    .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+
+     /*Изменяем цвет переключаталей при наведении */
+    .prev:hover, .next:hover {
+        background-color: rgba(0,0,0,0.8);
+    }
+
+     /*Цвет текста на слайдах*/
+    .caption-text{
+        color: #f2f2f2;
+        font-size: 12px;
+        padding: 8px 12px;
+        position: absolute;
+        top: 0;
+    }
+
+     /*Точки-индикаторы позиции слайда */
+    .dot {
+        cursor: pointer;
+        height: 15px;
+        width: 15px;
+        margin: 0 2px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+        transition: background-color 0.6s ease;
+    }
+
+    /* Блок с индикаторами позиции */
+    .dotsContainer {
+        text-align: center;
+        margin-top:  1%;
+    }
+
+    /* Эффекты наведения мыши на индикаторы */
+    .active, .dot:hover {
+        background-color: #717171;
+    }
+
+    /* Анимация переключения слайдов */
+    .fade {
+        -webkit-animation-name: fade;
+        -webkit-animation-duration: 1.5s;
+        animation-name: fade;
+        animation-duration: 1.5s;
+    }
+
+    /* Дополнительные настройки анимации */
+    @-webkit-keyframes fade {
+        from {opacity: .4}
+        to {opacity: 1}
+    }
+    @keyframes fade {
+        from {opacity: .4}
+        to {opacity: 1}
+    }
+    
+</style>
+
+<script>
+    // Сохраним текущий индекс слайда
+    let slideIndex = 1;
+
+    // ждём окончания загрузки страницы, чтобы начать показ слайдов
+    document.addEventListener("DOMContentLoaded", function(event) {
+
+            // Выставляем первый слайд и начинаем показ
+            slideIndex = 1
+            showSlides(slideIndex);
+    });
+
+    // Переключить на следующий слайд
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    // Показать текущий слайд
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    // Функция показа слайдов
+    function showSlides(n) {
+        // находим и сохраняем элементы для показа
+        let slides = document.getElementsByClassName("mySlides");
+        let dots = document.getElementsByClassName("dot");
+
+        // Переключаем на первый слайд
+        // если пользователь прокрутил дальше последнего слайда
+        if (n > slides.length) {
+            slideIndex = 1
+        }
+
+        // Переключаем на последний слайд
+        // если пользователь прокрутил до первого слайда
+        if (n < 1) {
+            slideIndex = slides.length
+        }
+
+        // Скрываем неактивные слайды
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        } 
+
+        // Скрываю точки-индикаторы неактивных слайдов
+        for (let i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+
+        // Показываем активный слайд
+        slides[slideIndex-1].style.display = "block";
+        // Показываем точку - индикатор активного слайда
+        dots[slideIndex-1].className += " active";
+    }
+    
+</script>
+
+
+<div class="slideshow-container">
+
+    <!--Контейнеры с изображениями и подписями к ним. Для изображений указан относительный путь-->
+
+    <div class="mySlides fade">
+        <div class="caption-text">montcalm.co.uk</div>
+        <img src="../Static/IMG/london.jpg" style="width:100%">
+    </div>
+
+    <div class="mySlides fade">
+        <div class="caption-text">searchthisweb.com</div>
+        <img src="../Static/IMG/ny.jpg" style="width:100%">
+    </div>
+
+    <div class="mySlides fade">
+        <div class="caption-text">glavguide.com</div>
+        <img src="../Static/IMG/spb.jpg" style="width:100%">
+    </div>
+
+    <!-- переключатели слайдов с атрибутами onclick -->
+    <a class="prev" onclick="plusSlides(-1)">❮</a>
+    <a class="next" onclick="plusSlides(1)">❯</a>
+
+    <br>
+
+    <!-- точки - индикаторы переключения слайдов-->
+    <div class="dotsContainer">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+    </div>
+</div>
